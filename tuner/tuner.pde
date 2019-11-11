@@ -54,9 +54,9 @@ public void draw()
   noFill();
 
   float freqDetected = getZeroCrossings() * bufferRatio;
-  //float currentFrequency = getAveragedFrequency(freqDetected);
-  float currentFrequency = altAvg(freqDetected);
-  text(str(hz2midi(440)), width/2, height/2);
+  //float currentFrequency = getAvgFrequency(freqDetected);
+  float currentFrequency = getAltAvgFrequency(freqDetected);
+  text(midi2note(hz2midi(currentFrequency)), width/2, height/2);
 }
 //------------------------------------------------------------------------------
 void keyPressed()
@@ -101,7 +101,7 @@ float getAveragedFrequency(float frequency)
   return average / (float)avgWindowSize;
 }
 
-float altAvg(float frequency)
+float getAltAvgFrequency(float frequency)
 {
   float oldFreq = freqWindow[windowIndex] / (float)avgWindowSize;
   float newFreq = frequency / (float)avgWindowSize;
