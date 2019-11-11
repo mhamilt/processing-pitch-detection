@@ -56,7 +56,7 @@ public void draw()
   float freqDetected = getZeroCrossings() * bufferRatio;
   //float currentFrequency = getAveragedFrequency(freqDetected);
   float currentFrequency = altAvg(freqDetected);
-  text(str(currentFrequency), width/2, height/2);
+  text(str(hz2midi(440)), width/2, height/2);
 }
 //------------------------------------------------------------------------------
 void keyPressed()
@@ -119,12 +119,22 @@ float log2 (float x)
   return (log(x) / log(2));
 }
 
-float midi2hz(float hz)
+float hz2midi(float hz)
 {
   return 12.0f * log2(hz / 440.0f) + 69;
 }
 
-float hztomidi(float midi)
+float midi2hz(float midi)
 {
   return pow(2, (midi - 69.0f)/12.0f) * 440.0f;
+}
+
+
+String midi2note(float midi)
+{
+  String[] notes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+  int wholeNote = floor(midi);
+  int index = (wholeNote) % 12;
+
+  return notes[index];
 }
