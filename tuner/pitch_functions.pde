@@ -59,7 +59,7 @@ float midi2hz(float midi)
 String midi2note(float midi)
 {
   String[] notes = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-  int wholeNote = floor(midi);
+  int wholeNote = floor(midi + 0.5); // Offset so that 50 cents is the switching point
   int index = (wholeNote) % 12;
 
   return notes[index];

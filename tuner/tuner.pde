@@ -53,10 +53,26 @@ public void draw()
   strokeWeight(2);
   noFill();
 
-  float freqDetected = getZeroCrossings() * bufferRatio;
-  //float currentFrequency = getAvgFrequency(freqDetected);
+  float freqDetected = getZeroCrossings() * bufferRatio;  
   float currentFrequency = getAltAvgFrequency(freqDetected);
-  text(midi2note(hz2midi(currentFrequency)), width/2, height/2);
+  float midi_note = hz2midi(currentFrequency);
+  float cents = floor(midi_note + 0.5) - midi_note;
+  textAlign(CENTER);
+  text(midi2note(midi_note), width/2, height/2);
+  rectMode(CENTER);
+  noFill();
+  rect(width/2, height/2 + 20, 2, 20);
+
+  if (abs(cents) > 0.1)
+    fill(255,0,0);
+  else
+    fill(0,255,0);
+    
+  rectMode(CORNERS);
+  if (cents < 0.0)
+    rect(width/2, height/2 +10, width/2 - (160*abs(cents)), height/2 + 30);
+  else
+    rect(width/2, height/2 +10, width/2 + (160*cents), height/2 + 30);
 }
 //------------------------------------------------------------------------------
 void keyPressed()
