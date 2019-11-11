@@ -1,6 +1,6 @@
 # Processing Pitch Detection
 
-Applying some basic pitch detection algorithms using the [Processing Sound Library]()
+Applying some basic pitch detection algorithms using the [Processing Sound Library](https://processing.org/reference/libraries/sound/index.html)
 
 
 ## Installing sound library
