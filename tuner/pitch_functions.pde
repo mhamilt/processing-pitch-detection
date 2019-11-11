@@ -28,6 +28,7 @@ float getRms()
 
 float autocorrolatePitch()
 {
+  waveform.analyze();
   int maximaCount = 0;
   maximaMean = 0;
   for (int l = 0; l < samples; l++)
