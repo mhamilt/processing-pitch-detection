@@ -14,6 +14,51 @@ float getZeroCrossings()
   return (float)zeroCrossCounter;
 }
 
+
+float getRms()
+{
+  waveform.analyze();
+  float mean = 0;
+  for (int i = 0; i < samples; i++)
+  {
+    mean += waveform.data[i] * waveform.data[i];
+  }
+  return sqrt(mean / float(samples));
+}
+
+float autocorrolatePitch()
+{
+  int maximaCount = 0;
+  maximaMean = 0;
+  for (int l = 0; l < samples; l++)
+  {
+    corrolatedSignal[l] = 0;
+    for (int i = 0; i < samples-l; i++)
+    {
+      corrolatedSignal[l] +=  waveform.data[i] * waveform.data[i + l];
+    }
+    if (l>1)
+    {
+      if ((corrolatedSignal[l-2] - corrolatedSignal[l-1]) < 0
+        && (corrolatedSignal[l-1] - corrolatedSignal[l]) > 0)
+      {
+        localMaxima[maximaCount] = (l-1);
+        maximaCount++;
+        if (!(maximaCount < 10))
+          break;
+      }
+    }
+  }
+  maximaMean += localMaxima[0];
+  for (int i = 1; i < maximaCount; i++)
+  {
+    maximaMean += localMaxima[i] - localMaxima[i - 1];
+  }
+  return sampleRate / (maximaMean / (float)maximaCount);
+}
+
+
+
 float getAveragedFrequency(float frequency)
 {
   freqWindow[windowIndex] = frequency;
@@ -40,7 +85,7 @@ float getAltAvgFrequency(float frequency)
 }
 //------------------------------------------------------------------------------
 
-float log2 (float x) 
+float log2 (float x)
 {
   return (log(x) / log(2));
 }

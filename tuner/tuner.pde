@@ -12,10 +12,13 @@ float sampleRate;
 float lowPassFreq = 800;
 //------------------------------------------------------------------------------
 int samples = 4410;
-float framerate = 4;
+float framerate = 1;
 float bufferRatio; // 2 * sampleRate / samples
 int avgWindowSize = 5;
 float[] freqWindow = new float[avgWindowSize];
+float[] corrolatedSignal = new float [samples];
+int[] localMaxima = new int[10];
+float maximaMean = 0;
 int windowIndex = 0;
 float averageFrequency = 0;
 //------------------------------------------------------------------------------
@@ -27,8 +30,8 @@ public void setup()
   size(640, 360);
   background(255);
 
-  audioConfig  = new Sound(this);  
-  sampleRate = float(audioConfig.sampleRate());  
+  audioConfig  = new Sound(this);
+  sampleRate = float(audioConfig.sampleRate());
   bufferRatio = 0.5f * sampleRate / (float)samples;
 
   in = new AudioIn(this, 0);
@@ -53,7 +56,9 @@ public void draw()
   strokeWeight(2);
   noFill();
 
-  float freqDetected = getZeroCrossings() * bufferRatio;  
+  float freqDetected = getZeroCrossings() * bufferRatio;
+
+  println(autocorrolatePitch());
   float currentFrequency = getAltAvgFrequency(freqDetected);
   float midi_note = hz2midi(currentFrequency);
   float cents = floor(midi_note + 0.5) - midi_note;
@@ -64,10 +69,10 @@ public void draw()
   rect(width/2, height/2 + 20, 2, 20);
 
   if (abs(cents) > 0.1)
-    fill(255,0,0);
+    fill(255, 0, 0);
   else
-    fill(0,255,0);
-    
+    fill(0, 255, 0);
+
   rectMode(CORNERS);
   if (cents < 0.0)
     rect(width/2, height/2 +10, width/2 - (160*abs(cents)), height/2 + 30);
@@ -82,7 +87,8 @@ void keyPressed()
     lowPassFreq += 100.0;
   } else if (key == 'z')
   {
-    lowPassFreq -= 100.0;
+    if (lowPassFreq>200)
+      lowPassFreq -= 100.0;
   }
   println(lowPassFreq);
   lowPass.freq(lowPassFreq);
