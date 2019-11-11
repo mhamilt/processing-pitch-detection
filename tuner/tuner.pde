@@ -16,7 +16,7 @@ boolean pitchDetectMode = false;
 int samples = 4410;
 float framerate = 5;
 float bufferRatio; // 2 * sampleRate / samples
-int avgWindowSize = 5;
+int avgWindowSize = 20;
 float[] freqWindow = new float[avgWindowSize];
 float[] corrolatedSignal = new float [samples];
 int[] localMaxima = new int[10];
@@ -34,7 +34,7 @@ public void setup()
 {
   size(640, 360);
   background(255);
-
+  
   audioConfig  = new Sound(this);
   sampleRate = float(audioConfig.sampleRate());
   bufferRatio = 0.5f * sampleRate / (float)samples;
@@ -45,6 +45,8 @@ public void setup()
   lowPass = new LowPass(this);
   lowPass.process(in, lowPassFreq);
   bandPass = new BandPass(this);
+  bandPass.process(in, note2hz("A4"), 50); // band pass particular note
+
   waveform = new Waveform(this, samples);
   waveform.input(in);
 
@@ -63,18 +65,18 @@ public void draw()
   if (getRms() > 0.03)
   {
     float freqDetected = (pitchDetectMode) ? (getZeroCrossings() * bufferRatio) : autocorrolatePitch();
-      currentFrequency = freqDetected;
+    currentFrequency = freqDetected;
     //currentFrequency = getAltAvgFrequency(freqDetected);
     midi_note = hz2midi(currentFrequency);   
-    println(currentFrequency);
-    cents = midi_note - floor(midi_note + 0.5); 
+    //println(currentFrequency);
+    cents = midi_note - floor(midi_note + 0.5);
   } 
   textAlign(CENTER);
   text(midi2note(midi_note), width/2, height/2);
   rectMode(CENTER);
   noFill();
   rect(width/2, height/2 + 20, 2, 20);
-  
+
   if (abs(cents) > 0.05)
     fill(255, 0, 0);
   else

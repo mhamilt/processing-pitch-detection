@@ -110,3 +110,23 @@ String midi2note(float midi)
 
   return notes[index];
 }
+
+float note2hz(String note)
+{
+  String pitch = (note.length() == 2) ? note.substring(0, 1) : note.substring(0, 2);
+  int octave = Integer.parseInt(note.substring(note.length() - 1));
+  String[] notes = {"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"};
+  float[] noteHz = { 13.75, 14.568, 15.434, 16.3516, 17.3239, 18.3540, 19.4454, 20.6017, 
+    21.8268, 23.1247, 24.4997, 25.956};
+  float hz = 0;
+  for (int i = 0; i < notes.length; i++)
+  {
+    if (pitch.equals(notes[i]))
+    {
+      hz = noteHz[i] * pow(2, octave + 1);
+      break;
+    }
+  }
+
+  return hz;
+}
