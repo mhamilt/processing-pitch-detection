@@ -37,12 +37,12 @@ let playing = false;
 let fft;
 let pitchDetect;
 let mic;
-var backgroundColor;
+let backgroundColor;
 //------------------------------------------------------------------------------
 
 function setup()
 {
-    var backgroundColor = color(50);
+    backgroundColor = color(50, 50, 50);
     canvas = createCanvas(screensize, screensize, P2D);
     canvas.parent('sketch-holder');
     if (typeof fullscreenMode != "undefined")
@@ -54,9 +54,9 @@ function setup()
 
     textAlign(CENTER);
     fft = new p5.FFT();
-    mic = new p5.AudioIn();
-    mic.start();
-    fft.setInput(mic);
+    // mic = new p5.AudioIn();
+    // mic.start();
+    // fft.setInput(mic);
     pitchDetect = new PitchDetect(sampleRate(), fft.waveform().length);
     textSize(18);
 }
