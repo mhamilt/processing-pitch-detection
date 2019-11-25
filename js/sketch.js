@@ -102,6 +102,7 @@ function drawTuner()
     {
         console.log(mic.getLevel());
         console.log(pitchData);
+        pitchDetect.getRms(fft.waveform());
     }
     rect(width/2, height/2 + 20, width/2 + pitchData.cents * 200, height/2 + 40);
 }
