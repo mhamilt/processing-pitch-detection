@@ -13,7 +13,7 @@ else
 {
     screensize = (4 * $("#sketch-holder").width()) / 5;
 }
-console.log($("#sketch-holder"));
+
 //------------------------------------------------------------------------------
 function windowResized()
 {
@@ -24,7 +24,6 @@ function windowResized()
         var x = (windowWidth - width) / 2;
         var y = (windowHeight - height) / 2;
         canvas.position(x, y);
-        console.log(screensize);
     }
     else
     {
@@ -89,7 +88,6 @@ function drawTuner()
     text(pitchData['note'], width/2, height/2);
 
     rectMode(CORNERS); // Set rectMode to CORNERS
-    console.log(Math.abs(pitchData.cents) );
     if (Math.abs(pitchData.cents) > 0.10)
     {
         fill(200, 10, 10);
