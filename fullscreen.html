@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <!-- META -->
+    <meta charset="UTF-8">
+    <meta name="description" content="P5js ToneMatrix">
+    <meta name="keywords" content="HTML,CSS,P5js,JavaScript,andre-michel,tonematrix,webaudio,p5s">
+    <meta name="author" content="Matthew Hamilton">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <title>ToneMatrix</title>
+    <!-- Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
+    <script>
+      var fullscreenMode = true;
+      window.addEventListener('touchmove', function() {})
+      document.ontouchmove = function(e)
+      {
+        e.preventDefault();
+      }
+
+      document.addEventListener('touchmove', function()
+      {
+        e.preventDefault();
+      },
+      {
+        passive: false
+      });
+    </script>
+    <script src="tone-matrix-js/ripple.js"></script>
+    <script src="tone-matrix-js/pattern.js"></script>
+    <script src="tone-matrix-js/input-functions.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+      body {
+        overflow: hidden;
+        -webkit-overflow-scrolling: unset;
+      }
+    </style>
+
+
+  </head>
+
+  <body>
+    <div id="sketch-holder" align="center"></div>
+    <script src="tone-matrix-js/sketch.js"></script>
+    <script>
+      var canvas_dom = document.getElementById('sketch-holder'); // make this your canvas DOM element
+      console.log("hello")
+      canvas_dom.addEventListener("touchstart", function(event)
+      {
+        event.preventDefault()
+      })
+      canvas_dom.addEventListener("touchmove", function(event)
+      {
+        event.preventDefault()
+      })
+      canvas_dom.addEventListener("touchend", function(event)
+      {
+        event.preventDefault()
+      })
+      canvas_dom.addEventListener("touchcancel", function(event)
+      {
+        event.preventDefault()
+      })
+
+      var fixed = document.getElementById('sketch-holder');
+
+      fixed.addEventListener('sketch-holder', function(e)
+      {
+
+        e.preventDefault();
+
+      }, false);
+    </script>
+  </body>
+
+</html>
