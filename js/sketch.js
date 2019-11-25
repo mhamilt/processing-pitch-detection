@@ -68,11 +68,7 @@ function draw()
 {
     (!playing)? drawSplash() : drawTuner();
 
-    if (frameCount % 30 === 0 && playing)
-    {
-        console.log(mic.getLevel());
-        console.log(fft.waveform());
-    }
+
 }
 
 
@@ -90,7 +86,9 @@ function drawTuner()
     noStroke();
     fill(255);
     let pitchData = pitchDetect.getPitch(fft.waveform());
-    text(pitchData['note'], width/2, height/2);
+
+
+    text(pitchData.note, width/2, height/2);
 
     rectMode(CORNERS); // Set rectMode to CORNERS
     if (Math.abs(pitchData.cents) > 0.10)
@@ -100,7 +98,11 @@ function drawTuner()
     {
         fill(20, 200, 10);
     }
-
+    if (frameCount % 30 === 0 && playing)
+    {
+        console.log(mic.getLevel());
+        console.log(pitchData);
+    }
     rect(width/2, height/2 + 20, width/2 + pitchData.cents * 200, height/2 + 40);
 }
 
