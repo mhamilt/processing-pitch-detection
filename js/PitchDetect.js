@@ -28,22 +28,19 @@ class PitchDetect
         this._avgFreqWindow = new MovingAverageFilter(30);
         this._pitchDetectMode = false;
         this._currentFrequency = 0;
-        this._detectionRmsThresh = 0.00;
+        this._detectionRmsThresh = 0.01;
 
     }
     //--------------------------------------------------------------------------
     getPitch(waveform)
     {
+        if (this.getRms(waveform) > this._detectionRmsThresh)
+        {
+            let freq = (this._pitchDetectMode) ? this.getZeroCrossings(waveform): this.getAutocorellation(waveform);
+            this._currentFrequency = this.getAverageFrequency(freq);
 
-        // console.log(waveform);
-        // if (this.getRms(waveform) > this._detectionRmsThresh)
-        // {
-        //     let freq = (this._pitchDetectMode) ? this.getZeroCrossings(waveform): this.getAutocorellation(waveform);
-        //     this._currentFrequency = this.getAverageFrequency(freq);
-        //
-        // }
+        }
 
-        this._currentFrequency = (this._pitchDetectMode) ? this.getZeroCrossings(waveform): this.getAutocorellation(waveform);
         let midi_note = this.hz2midi(this._currentFrequency);
         let note = this.hz2note(this._currentFrequency);
         let cents = midi_note - Math.floor(midi_note + 0.5);
