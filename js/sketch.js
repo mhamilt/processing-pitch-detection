@@ -68,7 +68,7 @@ function draw()
 {
     (!playing)? drawSplash() : drawTuner();
 
-    if (frameCount % 30 === 0)
+    if (frameCount % 30 === 0 && playing)
     {
         console.log(mic.getLevel());
         console.log(fft.waveform());
