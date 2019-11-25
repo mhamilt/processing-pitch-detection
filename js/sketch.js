@@ -107,25 +107,24 @@ function drawTuner()
 }
 
 
-// function touchStarted()
-// {
-//     if (getAudioContext().state !== 'running')
-//     {
-//         getAudioContext().resume();
-//     }
-//     if (mouseX > 0 && mouseX < width && mouseY < height && mouseY > 0) {
-//         if (!playing)
-//         {
-//             playing = true;
-//             backgroundColor = color(0, 0, 0);
-//         } else
-//         {
-//
-//             playing = false;
-//             backgroundColor = color(50);
-//         }
-//     }
-// }
+function touchStarted()
+{
+    if (getAudioContext().state !== 'running')
+    {
+        getAudioContext().resume();
+    }
+    if (mouseX > 0 && mouseX < width && mouseY < height && mouseY > 0)
+    {
+        if (!playing)
+        {
+            playing = true;
+
+        } else
+        {
+            playing = false;
+        }
+    }
+}
 function mouseClicked()
 {
 
