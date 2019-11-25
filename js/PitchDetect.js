@@ -28,12 +28,14 @@ class PitchDetect
         this._avgFreqWindow = new MovingAverageFilter(20);
         this._pitchDetectMode = false;
         this._currentFrequency = 0;
-        this._detectionRmsThresh = 0.03;
+        this._detectionRmsThresh = 0.00;
 
     }
     //--------------------------------------------------------------------------
     getPitch(waveform)
     {
+
+        console.log(waveform);
         if (this.getRms(waveform) > this._detectionRmsThresh)
         {
             let freq = (this._pitchDetectMode) ? this.getZeroCrossings(waveform): this.getAutocorellation(waveform);
