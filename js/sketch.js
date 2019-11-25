@@ -84,7 +84,6 @@ function drawTuner()
     noStroke();
     fill(255);
     let pitchData = pitchDetect.getPitch(fft.waveform());
-    fill(255);
     text(pitchData['note'], width/2, height/2);
 
     rectMode(CORNERS); // Set rectMode to CORNERS
@@ -121,10 +120,7 @@ function drawTuner()
 // }
 function mouseClicked()
 {
-    if (getAudioContext().state !== 'running')
-    {
-        getAudioContext().resume();
-    }
+
     if (mouseX > 0 && mouseX < width && mouseY < height && mouseY > 0) {
         if (!playing)
         {
@@ -132,7 +128,10 @@ function mouseClicked()
             // backgroundColor = color(0, 0, 0);
         } else
         {
-
+            if (getAudioContext().state !== 'running')
+            {
+                getAudioContext().resume();
+            }
             playing = false;
             // backgroundColor = color(50);
         }
