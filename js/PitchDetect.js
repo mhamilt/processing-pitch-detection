@@ -25,7 +25,7 @@ class PitchDetect
 
         this._autocorolateMaximaLimit = 10;
         this._localMaxima =  new Array(this._autocorolateMaximaLimit).fill(0);
-        this._avgFreqWindow = new MovingAverageFilter(20);
+        this._avgFreqWindow = new MovingAverageFilter(30);
         this._pitchDetectMode = false;
         this._currentFrequency = 0;
         this._detectionRmsThresh = 0.00;
