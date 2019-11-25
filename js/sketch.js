@@ -2,6 +2,7 @@
 // PREAMBLE
 // -----------------------------------------------------------------------------
 let canvas;
+var screensize = 400;
 //------------------------------------------------------------------------------
 if (typeof fullscreenMode != "undefined")
 {
@@ -12,6 +13,7 @@ else
 {
     screensize = (4 * $("#sketch-holder").width()) / 5;
 }
+console.log($("#sketch-holder"));
 //------------------------------------------------------------------------------
 function windowResized()
 {
@@ -54,9 +56,9 @@ function setup()
 
     textAlign(CENTER);
     fft = new p5.FFT();
-    // mic = new p5.AudioIn();
-    // mic.start();
-    // fft.setInput(mic);
+    mic = new p5.AudioIn();
+    mic.start();
+    fft.setInput(mic);
     pitchDetect = new PitchDetect(sampleRate(), fft.waveform().length);
     textSize(18);
 }
@@ -100,25 +102,25 @@ function drawTuner()
 }
 
 
-function touchStarted()
-{
-    if (getAudioContext().state !== 'running')
-    {
-        getAudioContext().resume();
-    }
-    if (mouseX > 0 && mouseX < width && mouseY < height && mouseY > 0) {
-        if (!playing)
-        {
-            playing = true;
-            backgroundColor = color(0, 0, 0);
-        } else
-        {
-
-            playing = false;
-            backgroundColor = color(50);
-        }
-    }
-}
+// function touchStarted()
+// {
+//     if (getAudioContext().state !== 'running')
+//     {
+//         getAudioContext().resume();
+//     }
+//     if (mouseX > 0 && mouseX < width && mouseY < height && mouseY > 0) {
+//         if (!playing)
+//         {
+//             playing = true;
+//             backgroundColor = color(0, 0, 0);
+//         } else
+//         {
+//
+//             playing = false;
+//             backgroundColor = color(50);
+//         }
+//     }
+// }
 function mouseClicked()
 {
     if (getAudioContext().state !== 'running')
