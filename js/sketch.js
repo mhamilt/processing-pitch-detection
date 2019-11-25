@@ -131,12 +131,12 @@ function mouseClicked()
         if (!playing)
         {
             playing = true;
-            backgroundColor = color(0, 0, 0);
+            // backgroundColor = color(0, 0, 0);
         } else
         {
 
             playing = false;
-            backgroundColor = color(50);
+            // backgroundColor = color(50);
         }
     }
 }
