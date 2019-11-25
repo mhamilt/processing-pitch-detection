@@ -100,9 +100,9 @@ function drawTuner()
     }
     if (frameCount % 30 === 0 && playing)
     {
-        console.log(mic.getLevel());
-        console.log(pitchData);
-        console.log(pitchDetect.getRms(fft.waveform()));
+        // console.log(mic.getLevel());
+        // console.log(pitchData);
+        // console.log(pitchDetect.getRms(fft.waveform()));
     }
     rect(width/2, height/2 + 20, width/2 + pitchData.cents * 200, height/2 + 40);
 }
