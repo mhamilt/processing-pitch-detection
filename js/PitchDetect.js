@@ -34,11 +34,11 @@ class PitchDetect
     //--------------------------------------------------------------------------
     getPitch(waveform)
     {
-        if (this.getRms(waveform) > this._detectionRmsThresh)
+        console.log(this.getRms(waveform));
+        if (this.getRms(waveform) > 0.005)
         {
             let freq = (this._pitchDetectMode) ? this.getZeroCrossings(waveform): this.getAutocorellation(waveform);
             this._currentFrequency = this.getAverageFrequency(freq);
-
         }
 
         let midi_note = this.hz2midi(this._currentFrequency);
